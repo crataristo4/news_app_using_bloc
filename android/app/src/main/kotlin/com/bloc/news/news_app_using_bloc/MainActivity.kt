@@ -1,0 +1,6 @@
+package com.bloc.news.news_app_using_bloc
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
