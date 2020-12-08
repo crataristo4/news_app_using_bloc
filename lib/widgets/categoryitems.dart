@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_using_bloc/constants/Constants.dart';
+import 'package:news_app_using_bloc/ui/categoriespage.dart';
 
 //news title category
 class TitleCategory extends StatelessWidget {
@@ -11,9 +12,14 @@ class TitleCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        /*   String titleToLowerCase = title.toString().toLowerCase();
-        Navigator.push(context, MaterialPageRoute(builder: (context) =>
-            Categories(categoryTitle: titleToLowerCase,)));*/
+        print(title);
+        String titleToLowerCase = title.toString().toLowerCase();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Categories(
+                      categoryTitle: titleToLowerCase,
+                    )));
       },
       child: Container(
         margin: EdgeInsets.all(NewsAppConstants().margin8),

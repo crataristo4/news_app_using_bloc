@@ -5,7 +5,7 @@ import 'package:news_app_using_bloc/bloc/events.dart';
 import 'package:news_app_using_bloc/bloc/states.dart';
 import 'package:news_app_using_bloc/constants/Constants.dart';
 import 'package:news_app_using_bloc/model/news.dart';
-import 'package:news_app_using_bloc/widgets/category.dart';
+import 'package:news_app_using_bloc/widgets/categoryitems.dart';
 import 'package:news_app_using_bloc/widgets/error_message.dart';
 import 'package:news_app_using_bloc/widgets/header.dart';
 import 'package:news_app_using_bloc/widgets/loading.dart';
