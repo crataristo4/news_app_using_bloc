@@ -7,17 +7,17 @@ class NoInternetException {
 class NoServicesFoundException {
   var message;
 
-  NoServicesFoundException(this.message);
+  NoServicesFoundException({this.message});
 }
 
 class UnknownErrorException {
   var message;
 
-  UnknownErrorException(this.message);
+  UnknownErrorException({this.message});
 }
 
 class InvalidFormatException {
   var message;
 
-  InvalidFormatException(this.message);
+  InvalidFormatException({this.message});
 }

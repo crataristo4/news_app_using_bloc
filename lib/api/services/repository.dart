@@ -13,9 +13,9 @@ class NewsServices implements NewsRepository {
   Future<List<Article>> getAllNews() async {
     List<Article> articleList = [];
 
-    // Uri uri = Uri.https(NewsAppConstants().baseUrl, NewsAppConstants().endPoint);
+    // Uri uri = Uri.http(NewsAppConstants().baseUrl, NewsAppConstants().endPoint);
     Response response = await http.get(
-        "http://newsapi.org/v2/everything?q=bitcoin&from=2020-11-07&sortBy=publishedAt&apiKey=2cd403f322434636a477589c8f07c665");
+        "https://newsapi.org/v2/everything?q=bitcoin&from=2020-11-07&sortBy=publishedAt&apiKey=2cd403f322434636a477589c8f07c665");
     //decode the response into a json object
     var jsonData = jsonDecode(response.body);
 
@@ -26,7 +26,7 @@ class NewsServices implements NewsRepository {
         if (item["urlToImage"] != null && item["description"] != null) {
           //create an object of type NewsArticles
           Article article = Article.fromJson(item);
-        //  print(article.toJson());
+          //  print(article.toJson());
           /*  Article newsArticleModel = new Article(
               author: item["author"],
               title: item["title"],
@@ -44,3 +44,4 @@ class NewsServices implements NewsRepository {
     return articleList;
   }
 }
+

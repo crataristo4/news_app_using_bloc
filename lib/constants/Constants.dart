@@ -31,7 +31,8 @@ class NewsAppConstants {
 
   get appTitle => "News App";
 
-  get baseUrl => "http://newsapi.org/v2/everything?q=bitcoin&from=2020-11-07&sortBy=publishedAt&";
+  get baseUrl =>
+      "newsapi.org/v2/everything?q=bitcoin&from=2020-11-07&sortBy=publishedAt&";
 
   get endPoint => "apiKey=2cd403f322434636a477589c8f07c665";
 

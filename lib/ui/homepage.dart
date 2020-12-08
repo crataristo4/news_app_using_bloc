@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_using_bloc/bloc/bloc.dart';
 import 'package:news_app_using_bloc/bloc/events.dart';
 import 'package:news_app_using_bloc/bloc/states.dart';
 import 'package:news_app_using_bloc/constants/Constants.dart';
 import 'package:news_app_using_bloc/model/news.dart';
+import 'package:news_app_using_bloc/widgets/category.dart';
 import 'package:news_app_using_bloc/widgets/error_message.dart';
 import 'package:news_app_using_bloc/widgets/header.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_using_bloc/widgets/loading.dart';
+import 'package:news_app_using_bloc/widgets/newsblog.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,9 +17,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> categoryItems;
+
   @override
   void initState() {
     super.initState();
+    categoryItems = getAllCategories();
     _loading();
   }
 
@@ -38,6 +43,26 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+
+        //category list
+        Container(
+          padding:
+          EdgeInsets.symmetric(horizontal: NewsAppConstants().margin16),
+          height: NewsAppConstants().columnHeight70,
+          child: ListView.builder(
+            itemCount: categoryItems.length,
+            itemBuilder: (context, index) {
+              return TitleCategory(
+                title: categoryItems[index],
+              );
+            },
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+          ),
+        ),
+
+        Divider(),
+
         BlocBuilder<NewsBloc, NewsState>(builder: (_, NewsState newsState) {
           //check states and update UI
           if (newsState is NewsErrorState) {
@@ -51,24 +76,7 @@ class _HomePageState extends State<HomePage> {
           }
           if (newsState is NewsLoadedState) {
             List<Article> newsList = newsState.newsList;
-            return Expanded(
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                    physics: ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: newsList.length,
-                    itemBuilder: (context, index) {
-                      return NewsBlogTile(
-                        urlToImage: newsList[index].urlToImage,
-                        title: newsList[index].title,
-                        description: newsList[index].description,
-                        url: newsList[index].url,
-                      );
-                    }),
-              ),
-            );
+            return updateUI(newsList);
           }
 
           return Loading();
@@ -77,48 +85,52 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-}
-
-class NewsBlogTile extends StatelessWidget {
-  final urlToImage, title, description, url;
-
-  NewsBlogTile(
-      {@required this.urlToImage,
-      @required this.title,
-      @required this.description,
-      @required this.url});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Expanded(
-        child: Container(
-          margin: EdgeInsets.all(NewsAppConstants().margin8),
-          child: Column(
-            children: <Widget>[
-              ClipRRect(
-                  borderRadius:
-                      BorderRadius.circular(NewsAppConstants().margin8),
-                  child: Image.network(urlToImage)),
-              Text(
-                title,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    fontSize: NewsAppConstants().margin16),
-              ),
-              SizedBox(
-                height: NewsAppConstants().margin8,
-              ),
-              Text(
-                description,
-                style: TextStyle(color: Colors.black54),
-              )
-            ],
+  Widget updateUI(List<Article> newsList) {
+    return Expanded(
+      child: ListView(
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        children: [
+          Container(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
+            child: ListView.builder(
+                physics: ClampingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: newsList.length,
+                itemBuilder: (context, index) {
+                  return NewsBlogTile(
+                    urlToImage: newsList[index].urlToImage,
+                    title: newsList[index].title,
+                    description: newsList[index].description,
+                    url: newsList[index].url,
+                  );
+                }),
           ),
-        ),
+        ],
       ),
     );
   }
+
+  //list of items to display as news category
+  getAllCategories() {
+    List<String> categoryList = [
+      "Business",
+      "Entertainment",
+      "General",
+      "Sports",
+      "Technology",
+      "Health",
+      "Science"
+    ];
+    return categoryList;
+  }
 }
+
