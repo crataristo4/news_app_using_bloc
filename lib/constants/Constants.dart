@@ -24,7 +24,9 @@ class NewsAppConstants {
   get cardHeight160 => 160.0;
 
   get font16 => 16.0;
+
   get font24 => 24.0;
+
   get font32 => 32.0;
 
   get textScale => 1.5;
@@ -32,8 +34,10 @@ class NewsAppConstants {
   get appTitle => "News App";
 
   get baseUrl =>
-      "newsapi.org/v2/everything?q=bitcoin&from=2020-11-07&sortBy=publishedAt&";
+      "http://newsapi.org/v2/everything?q=bitcoin&from=2020-11-09&sortBy=publishedAt&apiKey=";
 
-  get endPoint => "apiKey=2cd403f322434636a477589c8f07c665";
+  get baseArticlesUrl =>
+      "http://newsapi.org/v2/top-headlines?country=us&category=\$";
 
+  get apiKey => "df74fc47f0dd401bb5e56c34893a7795";
 }

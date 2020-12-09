@@ -12,7 +12,6 @@ class TitleCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print(title);
         String titleToLowerCase = title.toString().toLowerCase();
         Navigator.push(
             context,

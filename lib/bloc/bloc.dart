@@ -36,8 +36,43 @@ class NewsBloc extends Bloc<NewsEvents, NewsState> {
         } catch (e) {
           yield NewsErrorState(
               error:
-                  UnknownErrorException(message: "An Unknown error occurred"));
+              UnknownErrorException(message: "An Unknown error occurred"));
         }
     }
   }
 }
+
+/*class ArticlesBloc extends Bloc<NewsEvents, NewsState> {
+  List<Article> articlesList;
+  final category;
+
+  final ArticlesRepository articlesRepository;
+
+  ArticlesBloc({this.articlesRepository, this.category})
+      : super(NewsInitialState());
+
+  @override
+  Stream<NewsState> mapEventToState(NewsEvents event) async* {
+    switch (event) {
+      case NewsEvents.fetchNews:
+        yield NewsLoadingState();
+        try {
+          articlesList = await articlesRepository.getAllArticles(category);
+          yield ArticleLoadedState(newsList: articlesList , category: category);
+        } on SocketException {
+          NewsErrorState(
+              error: NoInternetException(errorMessage: "No Internet"));
+        } on FormatException {
+          NewsErrorState(
+              error: InvalidFormatException(message: "Invalid response"));
+        } on HttpException {
+          yield NewsErrorState(
+              error: NoServicesFoundException(message: "No Services found"));
+        } catch (e) {
+          yield NewsErrorState(
+              error:
+                  UnknownErrorException(message: "An Unknown error occurred"));
+        }
+    }
+  }
+}*/
